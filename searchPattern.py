@@ -7,11 +7,11 @@ pattern = [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]]
 def createMatrix(rows, columns):
     seed(1)
 
-    return [[randint(0, 1) for x in range(rows)] for y in range(columns)]
+    return [[randint(0, 1) for x in range(columns)] for y in range(rows)]
 
 
 def createMatrixEmpty(rows, columns):
-    return [[0 for x in range(rows)] for y in range(columns)]
+    return [[0 for x in range(columns)] for y in range(rows)]
 
 
 def printMatrix(matrix, rows, columns):
@@ -30,11 +30,11 @@ def truncatePattern(matrix):
             if (matrix[row][column] == 1):
                 if (column < minN):
                     minN = column
-                elif (column > maxN):
+                if(column > maxN):
                     maxN = column
-                if (row < minM):
+                if(row < minM):
                     minM = row
-                elif (row > maxM):
+                if(row > maxM):
                     maxM = row
 
     return maxM, maxN, minM, minN
@@ -52,29 +52,30 @@ def createPattern(matrix, width, heigth, minM, minN):
 
 def searchPattern(patternMatrixToTruncate, matrixToFindIn):
     maxM, maxN, minM, minN = truncatePattern(patternMatrixToTruncate)
-    print("MIN e MAX", minM, maxM, minN, maxN)
+    #print("MIN e MAX", minM, maxM, minN, maxN)
 
     width = (maxN - minN) + 1  # gli indici partono da 0
     height = (maxM - minM) + 1
 
-    print("WIDTH e HEIGHT", width, height)
+    #print("WIDTH e HEIGHT", width, height)
 
     patternMatrix = createPattern(patternMatrixToTruncate, width, height, minM, minN)
 
-    printMatrix(patternMatrix, height, width)
+    #printMatrix(patternMatrix, height, width)
 
     count = 0
-    for row in range(0, len(matrixToFindIn) - height):
-        for column in range(0, len(matrixToFindIn[row]) - width):
-            allTrue = True
+    for row in range(0, len(matrixToFindIn) + 1 - height):
+        for column in range(0, len(matrixToFindIn[row]) + 1 - width):
+            allTrue = False
             for i in range(0, height):
                 for j in range(0, width):
                     if(matrixToFindIn[row + i][column + j] == patternMatrix[i][j]):
                         allTrue = True
-                    elif(patternMatrix[i][j] == 1 and matrixToFindIn[row + i][column + j] == 5):
-                        allTrue = True
                     else:
                         allTrue = False
+                        break
+                if(allTrue == False):
+                    break
 
             if(allTrue):
                 count += 1
