@@ -49,6 +49,10 @@ def createPattern(matrix, width, heigth, minM, minN):
 
     return mat
 
+def rotate_matrix(matrix): # senso anti orario di 90 gradi
+    return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0])-1,-1,-1)]
+    #                                    |                           |
+    #                                    ----------------------------->matrix[0] in quando l'altezza diventa come la grandezza e viceversa.
 
 def searchPattern(patternMatrixToTruncate, matrixToFindIn):
     maxM, maxN, minM, minN = truncatePattern(patternMatrixToTruncate)
@@ -60,6 +64,8 @@ def searchPattern(patternMatrixToTruncate, matrixToFindIn):
     #print("WIDTH e HEIGHT", width, height)
 
     patternMatrix = createPattern(patternMatrixToTruncate, width, height, minM, minN)
+
+    patternMatrix = rotate_matrix(patternMatrix)
 
     #printMatrix(patternMatrix, height, width)
 
