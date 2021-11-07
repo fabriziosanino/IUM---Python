@@ -60,14 +60,16 @@ def rotateMatrix90Degree(matrix):  # senso anti orario di 90 gradi
     #                                    ----------------------------->matrix[0] in quando l'altezza diventa come la grandezza e viceversa.
 
 
-def findPattern(patternMatrix, matrixToFindIn, height, width):
-    for row in range(0, len(matrixToFindIn) + 1 - height):
-        for column in range(0, len(matrixToFindIn[row]) + 1 - width):
+def findPattern(patternMatrix, matrixToFindIn):
+    for row in range(0, len(matrixToFindIn) + 1 - len(patternMatrix)):
+        for column in range(0, len(matrixToFindIn[row]) + 1 - len(patternMatrix[0])):
             allTrue = False
-            for i in range(0, height):
-                for j in range(0, width):
-                    if ((matrixToFindIn[row + i][column + j] == patternMatrix[i][j]) or (
-                            matrixToFindIn[row + i][column + j] == 5 and patternMatrix[i][j] == 1)):
+            for i in range(0, len(patternMatrix)):
+                for j in range(0, len(patternMatrix[0])):
+                    if (patternMatrix[i][j] == 1) and ((matrixToFindIn[row + i][column + j] == patternMatrix[i][j]) or (
+                            matrixToFindIn[row + i][column + j] == 5)):
+                        allTrue = True
+                    elif patternMatrix[i][j] == 0:
                         allTrue = True
                     else:
                         allTrue = False
@@ -76,8 +78,8 @@ def findPattern(patternMatrix, matrixToFindIn, height, width):
                     break
 
             if allTrue:
-                for i in range(0, height):
-                    for j in range(0, width):
+                for i in range(0, len(patternMatrix)):
+                    for j in range(0, len(patternMatrix[0])):
                         if matrixToFindIn[row + i][column + j] == 1:
                             matrixToFindIn[row + i][column + j] = 5
 
@@ -90,15 +92,15 @@ def searchPattern(patternMatrixToTruncate, matrixToFindIn):
 
     patternMatrix = createPattern(patternMatrixToTruncate, width, height, minM, minN)
 
-    findPattern(patternMatrix, matrixToFindIn, height, width)
+    findPattern(patternMatrix, matrixToFindIn)
 
     patternMatrix = rotateMatrix90Degree(patternMatrix)
-    findPattern(patternMatrix, matrixToFindIn, width, height)
+    findPattern(patternMatrix, matrixToFindIn)
 
     patternMatrix = rotateMatrix90Degree(patternMatrix)
-    findPattern(patternMatrix, matrixToFindIn, width, height)
+    findPattern(patternMatrix, matrixToFindIn)
 
     patternMatrix = rotateMatrix90Degree(patternMatrix)
-    findPattern(patternMatrix, matrixToFindIn, width, height)
+    findPattern(patternMatrix, matrixToFindIn)
 
     printMatrix(matrixToFindIn)
