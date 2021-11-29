@@ -1,29 +1,14 @@
 from random import seed
 from random import randint
-from termcolor import colored
-
-pattern = [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]]
-
 
 def createMatrix(rows, columns):
-    seed(1)
+    seed()
 
     return [[randint(0, 1) for x in range(columns)] for y in range(rows)]
 
 
 def createMatrixEmpty(rows, columns):
     return [[0 for x in range(columns)] for y in range(rows)]
-
-
-def printMatrix(matrix):
-    for row in range(0, len(matrix)):
-        val = ""
-        for column in range(0, len(matrix[0])):
-            if matrix[row][column] == 5:
-                val += colored(str(matrix[row][column]), "green") + " "
-            else:
-                val += str(matrix[row][column]) + " "
-        print(val)
 
 
 def truncatePattern(matrix):
@@ -103,4 +88,5 @@ def searchPattern(patternMatrixToTruncate, matrixToFindIn):
     patternMatrix = rotateMatrix90Degree(patternMatrix)
     findPattern(patternMatrix, matrixToFindIn)
 
-    printMatrix(matrixToFindIn)
+    return matrixToFindIn
+    #printMatrix(matrixToFindIn)
