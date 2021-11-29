@@ -51,7 +51,7 @@ def findPattern(patternMatrix, matrixToFindIn):
             allTrue = False
             for i in range(0, len(patternMatrix)):
                 for j in range(0, len(patternMatrix[0])):
-                    if (patternMatrix[i][j] == 1) and ((matrixToFindIn[row + i][column + j] == patternMatrix[i][j]) or (
+                    if (patternMatrix[i][j] == 1) and ((matrixToFindIn[row + i][column + j] == 1) or (
                             matrixToFindIn[row + i][column + j] == 5)):
                         allTrue = True
                     elif patternMatrix[i][j] == 0:
@@ -65,7 +65,7 @@ def findPattern(patternMatrix, matrixToFindIn):
             if allTrue:
                 for i in range(0, len(patternMatrix)):
                     for j in range(0, len(patternMatrix[0])):
-                        if matrixToFindIn[row + i][column + j] == 1:
+                        if patternMatrix[i][j] == 1:
                             matrixToFindIn[row + i][column + j] = 5
 
 

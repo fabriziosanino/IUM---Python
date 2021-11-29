@@ -2,11 +2,11 @@ import tkinter as tk
 from searchPattern import *
 import ui
 
-rowsPattern = 4
-columnsPattern = 4
+rowsPattern = 10
+columnsPattern = 10
 
-rowsFind = 20
-columnsFind = 20
+rowsFind = 10
+columnsFind = 10
 
 if __name__ == '__main__':
     root = tk.Tk()
@@ -24,6 +24,8 @@ if __name__ == '__main__':
 
     patternMatrix = createMatrixEmpty(rowsPattern, columnsPattern)
 
-    app = ui.createUi(root, boxVars, patternMatrix, matrixToFindIn)
+    ui.createStaticUi(root)
+
+    ui.createDynamicUi(root, boxVars, patternMatrix, matrixToFindIn)
 
 

@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import messagebox
 import searchPattern
 
+btnFind = None
+
 def checkRow(arg):
     boxVars = arg['box']
     i = arg['row']
@@ -31,34 +33,35 @@ def find(arg):
         matrixToFindIn = searchPattern.searchPattern(patternMatrix, matrixToFindIn)
         printResult(matrixToFindIn, buttonList)
 
-def createUi(root, boxVars, patternMatrix, matrixToFindIn):
-    #setting title
+def createStaticUi(root):
+    # setting title
     root.title("PROGETTO Python")
-    #setting window size
-    width=800
-    height=700
+    # setting window size
+    width = 800
+    height = 700
     screenwidth = root.winfo_screenwidth()
     screenheight = root.winfo_screenheight()
     alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
     root.geometry(alignstr)
     root.resizable(width=False, height=False)
 
-    lblTitoloProgetto=tk.Label(root)
-    ft = tkFont.Font(family='Times',size=20)
+    lblTitoloProgetto = tk.Label(root)
+    ft = tkFont.Font(family='Times', size=20)
     lblTitoloProgetto["font"] = ft
     lblTitoloProgetto["fg"] = "#333333"
     lblTitoloProgetto["justify"] = "center"
     lblTitoloProgetto["text"] = "PROGETTO IUM"
-    lblTitoloProgetto.place(x=10,y=10,width=580,height=30)
+    lblTitoloProgetto.place(x=80, y=10, width=580, height=30)
 
-    lblInserisciPattern=tk.Label(root)
-    ft = tkFont.Font(family='Times',size=10)
+    lblInserisciPattern = tk.Label(root)
+    ft = tkFont.Font(family='Times', size=10)
     lblInserisciPattern["font"] = ft
     lblInserisciPattern["fg"] = "#333333"
     lblInserisciPattern["justify"] = "center"
     lblInserisciPattern["text"] = "Inserisci il pattern da cercare"
-    lblInserisciPattern.place(x=0,y=90,width=202,height=31)
+    lblInserisciPattern.place(x=0, y=90, width=202, height=31)
 
+def createDynamicUi(root, boxVars, patternMatrix, matrixToFindIn):
     for row in range(len(patternMatrix)):
         for column in range(len(patternMatrix[0])):
             checkbox = tk.Checkbutton(root)
@@ -71,6 +74,7 @@ def createUi(root, boxVars, patternMatrix, matrixToFindIn):
             checkbox["variable"] = boxVars[row][column]
             checkbox["command"] = lambda arg={'row':row, 'box': boxVars}: checkRow(arg)
 
+    startY = 200 + (20 * len(patternMatrix))
     startX = 360 - (len(matrixToFindIn[0]) / 2) * 20
     buttonList = [[0 for x in range(len(matrixToFindIn))] for y in range(len(matrixToFindIn[0]))]
     for row in range(len(matrixToFindIn)):
@@ -83,8 +87,9 @@ def createUi(root, boxVars, patternMatrix, matrixToFindIn):
             button["justify"] = "center"
             button["text"] = matrixToFindIn[row][column]
             button["state"] = "disabled"
-            button.place(x= startX + (20 * column), y= 210 + (20 * row) , width=20, height=20)
+            button.place(x=startX + (20 * column), y=startY + (20 * row), width=20, height=20)
             buttonList[row][column] = button
+
 
     btnFind = tk.Button(root)
     btnFind["bg"] = "#efefef"
@@ -96,10 +101,25 @@ def createUi(root, boxVars, patternMatrix, matrixToFindIn):
     btnFind.place(x=210, y = 90, width=70, height=25)
     btnFind["command"] = lambda arg = {'pattern': patternMatrix, 'matrix': matrixToFindIn, 'box': boxVars, 'list': buttonList}: find(arg)
 
+    lblMatrice = tk.Label(root)
+    ft = tkFont.Font(family='Times', size=15)
+    lblMatrice["font"] = ft
+    lblMatrice["fg"] = "#333333"
+    lblMatrice["justify"] = "center"
+    lblMatrice["text"] = "MATRICE"
+    lblMatrice.place(x=265, y=150 + (20 * len(patternMatrix)), width=202, height=31)
+
     root.mainloop()
 
 def printResult(matrix, buttonList):
+    cleanResult(matrix, buttonList)
     for row in range(0, len(matrix)):
         for column in range(0, len(matrix[0])):
             if matrix[row][column] == 5:
                 buttonList[row][column].configure(bg = "#7CFC00")
+                matrix[row][column] = 1
+
+def cleanResult(matrix, buttonList):
+    for row in range(0, len(matrix)):
+        for column in range(0, len(matrix[0])):
+                buttonList[row][column].configure(bg = "#efefef")
