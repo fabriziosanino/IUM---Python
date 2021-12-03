@@ -59,9 +59,11 @@ def createStaticUi(root):
     lblInserisciPattern["fg"] = "#333333"
     lblInserisciPattern["justify"] = "center"
     lblInserisciPattern["text"] = "Inserisci il pattern da cercare"
-    lblInserisciPattern.place(x=0, y=90, width=202, height=31)
+    lblInserisciPattern.place(x=220, y=90, width=202, height=31)
 
 def createDynamicUi(root, boxVars, patternMatrix, matrixToFindIn):
+    startX = 360 - (len(matrixToFindIn[0]) / 2) * 20
+
     for row in range(len(patternMatrix)):
         for column in range(len(patternMatrix[0])):
             checkbox = tk.Checkbutton(root)
@@ -70,12 +72,11 @@ def createDynamicUi(root, boxVars, patternMatrix, matrixToFindIn):
             checkbox["fg"] = "#333333"
             checkbox["justify"] = "center"
             checkbox["text"] = ""
-            checkbox.place(x=50 + (20 * column), y=120 + (20 * row), width=30, height=30)
+            checkbox.place(x=startX + (20 * column), y=120 + (20 * row), width=30, height=30)
             checkbox["variable"] = boxVars[row][column]
             checkbox["command"] = lambda arg={'row':row, 'box': boxVars}: checkRow(arg)
 
     startY = 200 + (20 * len(patternMatrix))
-    startX = 360 - (len(matrixToFindIn[0]) / 2) * 20
     buttonList = [[0 for x in range(len(matrixToFindIn))] for y in range(len(matrixToFindIn[0]))]
     for row in range(len(matrixToFindIn)):
         for column in range(len(matrixToFindIn[0])):
@@ -98,7 +99,7 @@ def createDynamicUi(root, boxVars, patternMatrix, matrixToFindIn):
     btnFind["fg"] = "#333333"
     btnFind["justify"] = "center"
     btnFind["text"] = "Cerca"
-    btnFind.place(x=210, y = 90, width=70, height=25)
+    btnFind.place(x=420, y = 90, width=70, height=25)
     btnFind["command"] = lambda arg = {'pattern': patternMatrix, 'matrix': matrixToFindIn, 'box': boxVars, 'list': buttonList}: find(arg)
 
     lblMatrice = tk.Label(root)
