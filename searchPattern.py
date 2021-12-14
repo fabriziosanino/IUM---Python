@@ -76,7 +76,6 @@ def searchPattern(patternMatrixToTruncate, matrixToFindIn):
     height = (maxM - minM) + 1
 
     patternMatrix = createPattern(patternMatrixToTruncate, width, height, minM, minN)
-
     findPattern(patternMatrix, matrixToFindIn)
 
     patternMatrix = rotateMatrix90Degree(patternMatrix)
@@ -89,4 +88,3 @@ def searchPattern(patternMatrixToTruncate, matrixToFindIn):
     findPattern(patternMatrix, matrixToFindIn)
 
     return matrixToFindIn
-    #printMatrix(matrixToFindIn)

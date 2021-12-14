@@ -5,16 +5,6 @@ import searchPattern
 
 btnFind = None
 
-def checkRow(arg):
-    boxVars = arg['box']
-    i = arg['row']
-    row = boxVars[i]
-    deselected = []
-
-    for j in range(len(row)):
-        if row[j].get() == 0:
-            deselected.append(j)
-
 def find(arg):
     patternMatrix = arg['pattern']
     matrixToFindIn = arg['matrix']
@@ -74,7 +64,6 @@ def createDynamicUi(root, boxVars, patternMatrix, matrixToFindIn):
             checkbox["text"] = ""
             checkbox.place(x=startX + (20 * column), y=120 + (20 * row), width=30, height=30)
             checkbox["variable"] = boxVars[row][column]
-            checkbox["command"] = lambda arg={'row':row, 'box': boxVars}: checkRow(arg)
 
     startY = 200 + (20 * len(patternMatrix))
     buttonList = [[0 for x in range(len(matrixToFindIn))] for y in range(len(matrixToFindIn[0]))]
