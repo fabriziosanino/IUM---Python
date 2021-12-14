@@ -2,8 +2,8 @@ import tkinter as tk
 from searchPattern import *
 import ui
 
-rowsPattern = 5
-columnsPattern = 5
+rowsPattern = 10
+columnsPattern = 10
 
 rowsFind = 10
 columnsFind = 10
